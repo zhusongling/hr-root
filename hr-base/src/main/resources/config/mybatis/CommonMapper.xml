@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Common">
+    <!-- insert时用到的公共字段 -->
+    <sql id="common7ColumnsPrefix">
+        <trim prefix="" prefixOverrides="" suffixOverrides="," suffix="">
+            ROW_STATUS,
+            <if test="rowCreator != null and rowCreator != ''">
+                ROW_CREATOR,
+            </if>
+            ROW_CREATE_TIME,
+            <if test="rowUpdater != null and rowUpdater != ''">
+                ROW_UPDATER,
+            </if>
+            ROW_UPDATE_TIME,
+            <if test="rowCreateInstId != null and rowCreateInstId != ''">
+                ROW_CREATE_INST_ID,
+            </if>
+            <if test="rowUpdateInstId != null and rowUpdateInstId != ''">
+                ROW_UPDATE_INST_ID,
+            </if>
+        </trim>
+    </sql>
+    <sql id="common7ColumnsSuffix">
+        <trim prefix="" prefixOverrides="" suffixOverrides="," suffix="">
+            <choose>
+                <when test="rowStatus != null and rowStatus != ''">
+                    #{rowStatus},
+                </when>
+                <otherwise>1,</otherwise>
+            </choose>
+            <if test="rowCreator != null and rowCreator != ''">
+                #{rowCreator, jdbcType=VARCHAR},
+            </if>
+            NOW(),
+            <if test="rowUpdater != null and rowUpdater != ''">
+                #{rowUpdater,jdbcType=VARCHAR},
+            </if>
+            NOW(),
+            <if test="rowCreateInstId != null and rowCreateInstId != ''">
+                #{rowCreateInstId, jdbcType=VARCHAR},
+            </if>
+            <if test="rowUpdateInstId != null and rowUpdateInstId != ''">
+                #{rowUpdateInstId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </sql>
+    <sql id="common5ColumnsPrefix">
+        <trim prefix="" prefixOverrides="" suffixOverrides="," suffix="">
+            ROW_STATUS,
+            <if test="rowCreator != null and rowCreator != ''">
+                ROW_CREATOR,
+            </if>
+            ROW_CREATE_TIME,
+            <if test="rowUpdater != null and rowUpdater != ''">
+                ROW_UPDATER,
+            </if>
+            ROW_UPDATE_TIME,
+        </trim>
+    </sql>
+    <sql id="common5ColumnsSuffix">
+        <trim prefix="" prefixOverrides="" suffixOverrides="," suffix="">
+            <choose>
+                <when test="rowStatus != null and rowStatus != ''">
+                    #{rowStatus},
+                </when>
+                <otherwise>1,</otherwise>
+            </choose>
+            <if test="rowCreator != null and rowCreator != ''">
+                #{rowCreator, jdbcType=VARCHAR},
+            </if>
+            NOW(),
+            <if test="rowUpdater != null and rowUpdater != ''">
+                #{rowUpdater,jdbcType=VARCHAR},
+            </if>
+            NOW(),
+        </trim>
+    </sql>
+    <!-- 更新时用到的公共字段 -->
+    <sql id="common4Columns">
+        <trim prefix="" prefixOverrides="" suffixOverrides="," suffix="">
+            <if test="rowStatus != null and rowStatus != ''">
+                ROW_STATUS = #{rowStatus, jdbcType=INTEGER},
+            </if>
+            <if test="rowUpdater != null and rowUpdater != ''">
+                ROW_UPDATER = #{rowUpdater, jdbcType=VARCHAR},
+            </if>
+            ROW_UPDATE_TIME = NOW(),
+            <if test="rowUpdateInstId != null and rowUpdateInstId != ''">
+                ROW_UPDATE_INST_ID = #{rowUpdateInstId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </sql>
+    <sql id="common3Columns">
+        <trim prefix="" prefixOverrides="" suffixOverrides="," suffix="">
+            <if test="rowStatus != null and rowStatus != ''">
+                ROW_STATUS = #{rowStatus, jdbcType=INTEGER},
+            </if>
+            <if test="rowUpdater != null and rowUpdater != ''">
+                ROW_UPDATER = #{rowUpdater, jdbcType=VARCHAR},
+            </if>
+            ROW_UPDATE_TIME = NOW(),
+        </trim>
+    </sql>
+
+    <!-- 通用排序 -->
+    <sql id="orderBy">
+        ORDER BY
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ${orderBy}
+            </when>
+            <otherwise>
+                ROW_UPDATE_TIME DESC
+            </otherwise>
+        </choose>
+    </sql>
+</mapper>

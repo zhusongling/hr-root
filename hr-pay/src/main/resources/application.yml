@@ -1,0 +1,46 @@
+server:
+  servlet:
+    context-path: /pay
+spring:
+  application:
+    # 本服务注册到注册到服务器的名称, 这个名称就是后面调用服务时的服务标识符
+    name: pay-service
+  profiles:
+    active: dev
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+---
+server:
+  port: 7005
+spring:
+  profiles: dev
+#设置服务注册中心的URL，本服务要向该服务注册中心注册自己
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:7003/eureka
+---
+server:
+  port: 8005
+spring:
+  profiles: uat
+#设置服务注册中心的URL，本服务要向该服务注册中心注册自己（集群服务中心）
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8003/eureka
+---
+server:
+  port: 9005
+spring:
+  profiles: prod
+#设置服务注册中心的URL，本服务要向该服务注册中心注册自己
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:9003/eureka

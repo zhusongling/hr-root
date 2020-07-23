@@ -1,0 +1,46 @@
+mybatis:
+  mapper-locations: classpath*:config/mybatis/*Mapper.xml
+  type-aliases-package: com.ling.hr.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    default-statement-timeout: 30
+    default-fetch-size: 100
+---
+spring:
+  profiles: dev
+  datasource: 
+    dialect: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.1.123:3306/yxssit?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: 1qaz@WSX
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-active: 10
+    max-idle: 5
+    min-idle: 0
+---
+spring: 
+  profiles: uat
+  datasource: 
+    dialect: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://172.17.150.0:3306/hrdb?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: 1qaz@WSX
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-active: 10
+    max-idle: 5
+    min-idle: 0
+---
+spring: 
+  profiles: prod
+  datasource: 
+    dialect: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://172.17.150.0:3306/hrdb?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: 1qaz@WSX
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-active: 10
+    max-idle: 5
+    min-idle: 0

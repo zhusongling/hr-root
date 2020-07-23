@@ -1,0 +1,63 @@
+spring:
+  application:
+    #设置服务名称
+    name: eureka-server
+  profiles:
+    active: dev
+eureka:
+  instance:
+    # 心跳间隔
+    lease-renewal-interval-in-seconds: 5
+    # 服务失效时间： 如果多久没有收到请求，则可以删除服务
+    lease-expiration-duration-in-seconds: 10
+    # 使用IP注册
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  server:
+    # Eureka Server 自我保护系数，当enable-self-preservation=true时，启作用
+    # 关闭自我保护模式
+    enable-self-preservation: false
+    # renewal-percent-threshold:
+    # 设置清理间隔,单位为毫秒,默认为0
+    eviction-interval-timer-in-ms: 3000
+    # 设置如果Eureka Server启动时无法从临近Eureka Server节点获取注册信息，它多久不对外提供注册服务
+    wait-time-in-ms-when-sync-empty: 6000000
+    # 集群之间相互更新节点信息的时间频率
+    peer-eureka-nodes-update-interval-ms: 60000
+  client:
+    # 注册自身到eureka服务器
+    register-with-eureka: true
+    # 表示是否从eureka服务器获取注册信息
+    fetch-registry: false
+    # 客户端从Eureka Server集群里更新Eureka Server信息的频率
+    eureka-service-url-poll-interval-seconds: 60
+    # 定义从注册中心获取注册服务的信息
+    registry-fetch-interval-seconds: 5
+---
+server:
+  port: 7003
+spring:
+  profiles: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka
+---
+server:
+  port: 8003
+spring:
+  profiles: uat
+eureka:
+  client:
+    service-url:
+      # 设置服务注册中心的URL
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka
+---
+server:
+  port: 9003
+spring:
+  profiles: prod
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka

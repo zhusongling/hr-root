@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n"/>
+
+    <logger name="java.sql.PreparedStatement" value="DEBUG"/>
+    <logger name="java.sql.Connection" value="DEBUG"/>
+    <logger name="java.sql.Statement" value="DEBUG"/>
+    <logger name="com.ibatis" value="DEBUG"/>
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource" value="DEBUG"/>
+    <logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG"/>
+    <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" value="DEBUG"/>
+    <logger name="com.ling" level="DEBUG"/>
+
+    <!-- 开发环境日志 -->
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <!-- 测试环境日志 -->
+    <springProfile name="uat">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <appender name="UAT-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>/opt/logs/uat/admin/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <MaxHistory>10</MaxHistory>
+                <MaxFileSize>10MB</MaxFileSize>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="UAT-FILE"/>
+        </root>
+    </springProfile>
+    <!-- 正式环境日志 -->
+    <springProfile name="prod">
+        <appender name="PROD-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>/opt/logs/uat/admin/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <MaxHistory>10</MaxHistory>
+                <MaxFileSize>10MB</MaxFileSize>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="PROD-FILE"/>
+        </root>
+    </springProfile>
+</configuration>
