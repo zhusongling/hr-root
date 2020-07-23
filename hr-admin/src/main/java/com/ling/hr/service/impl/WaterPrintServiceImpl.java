@@ -27,8 +27,9 @@ public class WaterPrintServiceImpl implements WaterPrintService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int total = reader.getNumberOfPages() + 1;
+        
         // 获取总页数 +1, 下面从1开始遍历
+        int total = reader.getNumberOfPages() + 1;
 
         PdfStamper stamper = null;
         BaseFont base = null;
