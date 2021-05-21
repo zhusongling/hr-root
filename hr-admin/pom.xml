@@ -25,6 +25,11 @@
             <version>1.0</version>
         </dependency>
         <dependency>
+            <groupId>com.ling.hr</groupId>
+            <artifactId>hr-base</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>

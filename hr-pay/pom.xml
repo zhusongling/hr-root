@@ -11,10 +11,13 @@
     </parent>
 
     <artifactId>hr-pay</artifactId>
+    <name>hr-pay</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.jdk>1.8</project.build.jdk>
+        <freemarker.version>2.3.28</freemarker.version>
     </properties>
 
     <dependencies>
@@ -23,14 +26,32 @@
             <artifactId>hr-base</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <!-- 打包时候的包名 -->
         <finalName>${project.artifactId}</finalName>
-
         <plugins>
-            <!-- 设置编译版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -55,7 +76,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.yunxiaosheng.Application</mainClass>
+                            <mainClass>com.ling.hr.Application</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <useUniqueVersions>false</useUniqueVersions>
@@ -65,9 +86,13 @@
                         </manifestEntries>
                     </archive>
                     <classesDirectory></classesDirectory>
-                    <includes>
-                        <include>com/**</include>
-                    </includes>
+                    <excludes>
+                        <exclude>application.yml</exclude>
+                        <exclude>logback-spring.xml</exclude>
+                        <exclude>mybatis-config.xml</exclude>
+                        <exclude>quartz.properties</exclude>
+                        <exclude>mybatis/*</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
